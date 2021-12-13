@@ -1,0 +1,76 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://main.gd" type="Script" id=1]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 1, 208 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 208, 1 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 1, 208 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 208, 1 )
+
+[node name="Root" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 1027.0
+margin_bottom = 600.0
+color = Color( 0.501961, 0.501961, 0.501961, 1 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Board" type="Area2D" parent="."]
+
+[node name="BoardColor" type="ColorRect" parent="Board"]
+margin_left = 45.0
+margin_top = 45.0
+margin_right = 461.0
+margin_bottom = 461.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="EdgeLeft" type="StaticBody2D" parent="Board"]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Board/EdgeLeft"]
+position = Vector2( 44, 253 )
+shape = SubResource( 1 )
+
+[node name="EdgeTop" type="StaticBody2D" parent="Board"]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Board/EdgeTop"]
+position = Vector2( 253, 44 )
+shape = SubResource( 2 )
+
+[node name="EdgeRight" type="StaticBody2D" parent="Board"]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Board/EdgeRight"]
+position = Vector2( 462, 253 )
+shape = SubResource( 3 )
+
+[node name="EdgeBottom" type="StaticBody2D" parent="Board"]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Board/EdgeBottom"]
+position = Vector2( 253, 462 )
+shape = SubResource( 4 )

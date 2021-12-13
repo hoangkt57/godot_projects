@@ -1,0 +1,182 @@
+[gd_scene load_steps=24 format=2]
+
+[ext_resource path="res://assets/bird_orange_0.png" type="Texture" id=1]
+[ext_resource path="res://bird.gd" type="Script" id=2]
+[ext_resource path="res://assets/background_day.png" type="Texture" id=3]
+[ext_resource path="res://assets/bird_orange_2.png" type="Texture" id=4]
+[ext_resource path="res://assets/bird_orange_1.png" type="Texture" id=5]
+[ext_resource path="res://assets/ground.png" type="Texture" id=6]
+[ext_resource path="res://main.gd" type="Script" id=7]
+[ext_resource path="res://ground.gd" type="Script" id=8]
+[ext_resource path="res://pipe_container.gd" type="Script" id=9]
+[ext_resource path="res://assets/instructions.png" type="Texture" id=10]
+[ext_resource path="res://assets/label_game_over.png" type="Texture" id=11]
+[ext_resource path="res://assets/panel_score.png" type="Texture" id=12]
+[ext_resource path="res://assets/button_score_normal.png" type="Texture" id=13]
+[ext_resource path="res://assets/button_play_pressed.png" type="Texture" id=14]
+[ext_resource path="res://assets/button_play_normal.png" type="Texture" id=15]
+[ext_resource path="res://assets/button_score_pressed.png" type="Texture" id=16]
+[ext_resource path="res://dialog.gd" type="Script" id=17]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 180.899, 2.96482 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 23.6725, 16.967 )
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ ExtResource( 1 ), ExtResource( 5 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "default",
+"speed": 10.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 22.9234, 16.2178 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 176.128, 1.89435 )
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 179.493, 2.95541 )
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 7 )
+
+[node name="PipeContainer" type="Container" parent="."]
+margin_right = 360.0
+margin_bottom = 561.0
+script = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Instructions" type="TextureRect" parent="."]
+margin_left = 110.761
+margin_top = 216.275
+margin_right = 167.761
+margin_bottom = 265.275
+rect_scale = Vector2( 2.5, 2.5 )
+texture = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Ceiling" type="StaticBody2D" parent="."]
+position = Vector2( 180, 0 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ceiling"]
+shape = SubResource( 1 )
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+position = Vector2( 88, 280 )
+mode = 2
+mass = 1.02041
+gravity_scale = 0.0
+script = ExtResource( 2 )
+
+[node name="Area2D" type="Area2D" parent="RigidBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D/Area2D"]
+shape = SubResource( 2 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="RigidBody2D"]
+scale = Vector2( 2.5, 2.5 )
+frames = SubResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+shape = SubResource( 4 )
+
+[node name="Floor" type="Area2D" parent="."]
+position = Vector2( 180, 561 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Floor"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor/StaticBody2D"]
+shape = SubResource( 5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+shape = SubResource( 6 )
+one_way_collision = true
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+scroll_ignore_camera_zoom = true
+script = ExtResource( 8 )
+
+[node name="TextureRect" type="TextureRect" parent="ParallaxBackground"]
+margin_right = 360.0
+margin_bottom = 719.0
+texture = ExtResource( 3 )
+stretch_mode = 7
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2( 150, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( 182.235, 640.148 )
+scale = Vector2( 2.13176, 2.81808 )
+texture = ExtResource( 6 )
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Dialog" type="Control" parent="CanvasLayer"]
+margin_right = 360.0
+margin_bottom = 720.0
+script = ExtResource( 17 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GameOver" type="TextureRect" parent="CanvasLayer/Dialog"]
+margin_left = 64.0363
+margin_top = 127.447
+margin_right = 160.036
+margin_bottom = 148.447
+rect_scale = Vector2( 2.5, 2.5 )
+texture = ExtResource( 11 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PanelScore" type="TextureRect" parent="CanvasLayer/Dialog"]
+margin_left = 70.9832
+margin_top = 214.349
+margin_right = 183.983
+margin_bottom = 271.349
+rect_scale = Vector2( 2, 2 )
+texture = ExtResource( 12 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Start" type="TextureButton" parent="CanvasLayer/Dialog"]
+margin_left = 38.3015
+margin_top = 368.704
+margin_right = 90.3015
+margin_bottom = 398.704
+rect_scale = Vector2( 2, 2 )
+texture_normal = ExtResource( 15 )
+texture_pressed = ExtResource( 14 )
+
+[node name="Score" type="TextureButton" parent="CanvasLayer/Dialog"]
+margin_left = 210.579
+margin_top = 367.946
+margin_right = 262.579
+margin_bottom = 398.946
+rect_scale = Vector2( 2, 2 )
+texture_normal = ExtResource( 13 )
+texture_pressed = ExtResource( 16 )
+
+[node name="Tween" type="Tween" parent="CanvasLayer/Dialog"]
+
+[connection signal="area_entered" from="RigidBody2D/Area2D" to="PipeContainer" method="_on_Area2D_area_entered"]
+[connection signal="area_entered" from="RigidBody2D/Area2D" to="RigidBody2D" method="_on_Area2D_area_entered"]
+[connection signal="body_entered" from="Floor" to="." method="_on_Floor_body_entered"]
+[connection signal="body_entered" from="Floor" to="RigidBody2D" method="_on_Floor_body_entered"]
+[connection signal="pressed" from="CanvasLayer/Dialog/Start" to="." method="_on_Dialog_Start_pressed"]
